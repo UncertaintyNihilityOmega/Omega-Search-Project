@@ -163,14 +163,6 @@
     color: #fff;
   }
 
-  .hint {
-    margin: 0;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink-faint);
-  }
-
   footer {
     position: relative;
     z-index: 2;
@@ -249,8 +241,6 @@
   </form>
 
   <div id="engines" class="engines ui" role="group" aria-label="Search engine"></div>
-
-  <p class="hint">click anywhere &middot; tab to switch</p>
 </main>
 
 <footer class="ui">
@@ -319,8 +309,12 @@ form.addEventListener("submit", e => {
   if (!query) return;
   const url = ENGINES[active].url + encodeURIComponent(query);
   const opened = window.open(url, "_blank");
-  if (opened) opened.opener = null;
-  else location.href = url;
+  if (opened) {
+    opened.opener = null;
+    input.value = "";
+  } else {
+    location.href = url;
+  }
 });
 
 input.addEventListener("keydown", e => {
